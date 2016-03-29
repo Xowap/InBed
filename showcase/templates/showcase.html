@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.title }}</title>
+    <meta name="viewport" content="width={{ min_width }}">
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-width: {{ min_width }}px;
+            height: 100%;
+            background-color: {{ page.background }};
+        }
+
+        .img {
+            text-align: center;
+        }
+
+        img {
+            margin-bottom: -20px !important;
+        }
+
+        {% for design in designs %}
+            /**** min width = {{ design.min_width }} ****/
+
+            #img-{{ design.pk }} img {
+                margin: 0 {{ design.lateral_margins }}px;
+            }
+
+            {% if not forloop.first %}
+            @media (min-width: {{ design.min_width | add:'20' }}px) {
+            {% endif %}
+
+            {% for other in designs %}
+                {% if other.pk == design.pk %}
+                    #img-{{ other.pk }} {
+                        display: block;
+                    }
+                {% else %}
+                    #img-{{ other.pk }} {
+                        display: none;
+                    }
+                {% endif %}
+            {% endfor %}
+
+            {% if not forloop.first %}
+            }
+            {% endif %}
+        {% endfor %}
+    </style>
+</head>
+<body>
+{% for design in designs %}
+    <div class="img"
+         id="img-{{ design.pk }}">
+        <img src="{{ design.image.url }}"
+             alt="">
+    </div>
+{% endfor %}
+</body>
+</html>

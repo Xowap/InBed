@@ -1,0 +1,6 @@
+.idea
+*.swp
+*.un~
+*.pyc
+*.sqlite3
+media
