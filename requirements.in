@@ -6,3 +6,4 @@ dj-database-url
 gunicorn
 django-storages-redux
 boto
+psycopg2
