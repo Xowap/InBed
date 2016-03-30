@@ -7,3 +7,4 @@ gunicorn
 django-storages-redux
 boto
 psycopg2
+raven
